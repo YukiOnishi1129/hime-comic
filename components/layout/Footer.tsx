@@ -16,6 +16,15 @@ export function Footer() {
             おすすめ
           </Link>
         </div>
+        {/* 姉妹サイト */}
+        <div className="mb-4">
+          <p className="mb-2 text-xs text-foreground/40">姉妹サイト</p>
+          <div className="flex flex-wrap justify-center gap-4">
+            <a href="https://2d-adb.com" className="hover:text-foreground" target="_blank" rel="noopener noreferrer">
+              2D-ADB（二次元ASMR）
+            </a>
+          </div>
+        </div>
         {/* FANZA API クレジット表記 */}
         <p className="mt-4 text-xs text-foreground/40">
           Powered by{" "}

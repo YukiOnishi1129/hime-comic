@@ -41,6 +41,9 @@ export const metadata: Metadata = {
     type: "website",
     locale: "ja_JP",
     siteName: "DJ-ADB",
+    images: [
+      { url: "https://dj-adb.com/ogp/recommendation_ogp.png", width: 1200, height: 630 },
+    ],
   },
   twitter: {
     card: "summary_large_image",
