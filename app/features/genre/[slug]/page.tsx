@@ -14,6 +14,7 @@ import {
   FileText,
 } from "lucide-react";
 import { Header, Footer } from "@/components/layout";
+import { SisterSiteBanner } from "@/components/sister-site-banner";
 import {
   getGenreFeatures,
   getGenreFeatureBySlug,
@@ -424,6 +425,9 @@ export default async function GenreFeatureDetailPage({ params }: Props) {
             </div>
           </section>
         )}
+
+        {/* 姉妹サイトバナー */}
+        <SisterSiteBanner />
       </main>
 
       <Footer />

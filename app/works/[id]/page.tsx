@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ExternalLink, BookOpen } from "lucide-react";
 import { Header, Footer } from "@/components/layout";
+import { SisterSiteBanner } from "@/components/sister-site-banner";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { SaleBannerCountdown } from "@/components/sale-banner-countdown";
@@ -813,6 +814,9 @@ export default async function WorkDetailPage({ params }: Props) {
             </section>
           )}
         </div>
+
+        {/* 姉妹サイトバナー */}
+        <SisterSiteBanner />
       </main>
 
       <Footer />

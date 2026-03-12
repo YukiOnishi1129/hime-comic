@@ -14,6 +14,7 @@ import {
   FileText,
 } from "lucide-react";
 import { Header, Footer } from "@/components/layout";
+import { SisterSiteBanner } from "@/components/sister-site-banner";
 import {
   getCircleFeatures,
   getCircleFeatureBySlug,
@@ -506,6 +507,9 @@ export default async function CircleFeatureDetailPage({ params }: Props) {
             </div>
           </section>
         )}
+
+        {/* 姉妹サイトバナー */}
+        <SisterSiteBanner />
       </main>
 
       <Footer />
