@@ -24,6 +24,7 @@ import {
   formatDiscount,
   getFanzaUrl,
 } from "@/lib/utils";
+import { ProductJsonLd, ReviewJsonLd, BreadcrumbJsonLd } from "@/components/json-ld";
 import type { Metadata } from "next";
 
 interface Props {
@@ -41,12 +42,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isOnSale = work.sale_price !== null && work.sale_price < work.price;
   const salePrefix = isOnSale ? `【${work.discount_rate}%OFF】` : "";
 
+  const ratingText = work.rating ? `★${work.rating.toFixed(1)}` : "";
+  const saleText = isOnSale ? `${work.discount_rate}%OFF セール中` : "";
+  const leadParts = [ratingText, saleText].filter(Boolean).join("／");
+  const leadPrefix = leadParts ? `${leadParts}｜` : "";
+  const baseDesc = work.ai_appeal_points || work.ai_summary || `${work.circle_name}の作品「${work.title}」`;
+  const description = `${leadPrefix}${baseDesc}`;
+
   return {
-    title: `${salePrefix}${work.title} | DJ-ADB`,
-    description:
-      work.ai_appeal_points ||
-      work.ai_summary ||
-      `${work.circle_name}の作品「${work.title}」`,
+    title: `${salePrefix}${work.title} レビュー・感想 | DJ-ADB`,
+    description,
     openGraph: {
       images: work.thumbnail_url ? [work.thumbnail_url] : [],
     },
@@ -83,8 +88,17 @@ export default async function WorkDetailPage({ params }: Props) {
     getRecommendedWorks(work.id, 4),
   ]);
 
+  const breadcrumbItems = [
+    { label: "トップ", href: "/" },
+    { label: "作品一覧", href: "/works" },
+    { label: work.title },
+  ];
+
   return (
     <div className="min-h-screen bg-background pb-32 md:pb-0">
+      <ProductJsonLd work={work} />
+      <ReviewJsonLd work={work} />
+      <BreadcrumbJsonLd items={breadcrumbItems} />
       <Header />
 
       {/* セール中固定バナー（スマホのみ） */}

@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
-  const title = `${decodedName}の作品一覧（${works.length}作品） | DJ-ADB`;
+  const title = `${decodedName}の作品レビュー一覧（${works.length}作品） | DJ-ADB`;
   const description = `サークル「${decodedName}」の同人コミック・CG ${works.length}作品を掲載。`;
 
   return {
