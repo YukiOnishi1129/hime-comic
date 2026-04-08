@@ -63,7 +63,7 @@ export function ReviewJsonLd({ work }: ProductJsonLdProps) {
     "@context": "https://schema.org",
     "@type": "Review",
     itemReviewed: {
-      "@type": "CreativeWork",
+      "@type": "Product",
       name: work.title,
       ...(work.thumbnail_url && { image: work.thumbnail_url }),
     },
@@ -72,23 +72,6 @@ export function ReviewJsonLd({ work }: ProductJsonLdProps) {
       name: "DJ-ADB",
     },
     reviewBody: reviewBody,
-    ...(work.rating && {
-      reviewRating: {
-        "@type": "Rating",
-        ratingValue: work.rating.toFixed(1),
-        bestRating: "5",
-        worstRating: "1",
-      },
-    }),
-    ...(work.rating && work.review_count && {
-      aggregateRating: {
-        "@type": "AggregateRating",
-        ratingValue: work.rating.toFixed(1),
-        bestRating: "5",
-        worstRating: "1",
-        reviewCount: work.review_count,
-      },
-    }),
   };
 
   return (
