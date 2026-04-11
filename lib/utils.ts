@@ -36,8 +36,9 @@ export function formatDiscount(rate: number): string {
 }
 
 /**
- * FANZAの作品ページURLを生成
+ * FANZAの作品ページURLを生成（アフィリエイトリンク）
  */
 export function getFanzaUrl(contentId: string): string {
-  return `https://www.dmm.co.jp/dc/doujin/-/detail/=/cid=${contentId}/`;
+  const rawUrl = `https://www.dmm.co.jp/dc/doujin/-/detail/=/cid=${contentId}/`;
+  return `https://al.dmm.co.jp/?lurl=${encodeURIComponent(rawUrl)}&af_id=monodata-992&ch=link_tool&ch_id=link`;
 }
