@@ -31,6 +31,8 @@ export function Header() {
         <nav className="hidden shrink-0 items-center gap-6 lg:flex">
           <NavLink href="/works">作品一覧</NavLink>
           <NavLink href="/circles">サークル</NavLink>
+          <NavLink href="/features/genre">ジャンル特集</NavLink>
+          <NavLink href="/features/circle">サークル特集</NavLink>
           <NavLink href="/features/daily">おすすめ</NavLink>
         </nav>
       </div>

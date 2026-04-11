@@ -89,9 +89,11 @@ async function fetchParquet(filename) {
 async function main() {
   console.log("Fetching data from R2 Parquet...");
 
-  const [works, circles] = await Promise.all([
+  const [works, circles, genreFeatures, circleFeatures] = await Promise.all([
     fetchParquet("works.parquet"),
     fetchParquet("circles.parquet"),
+    fetchParquet("genre_features.parquet").catch(() => []),
+    fetchParquet("circle_features.parquet").catch(() => []),
   ]);
 
   // 利用可能な作品のみ
@@ -132,7 +134,10 @@ async function main() {
     { path: "", priority: "1.0", changefreq: "daily" },
     { path: "/works/", priority: "0.9", changefreq: "daily" },
     { path: "/sale/", priority: "0.9", changefreq: "daily" },
-    { path: "/recommendations/", priority: "0.8", changefreq: "daily" },
+    { path: "/features/daily/", priority: "0.8", changefreq: "daily" },
+    { path: "/features/sale/", priority: "0.8", changefreq: "daily" },
+    { path: "/features/genre/", priority: "0.8", changefreq: "weekly" },
+    { path: "/features/circle/", priority: "0.8", changefreq: "weekly" },
     { path: "/search/", priority: "0.7", changefreq: "weekly" },
     { path: "/tags/", priority: "0.7", changefreq: "weekly" },
     { path: "/circles/", priority: "0.7", changefreq: "weekly" },
@@ -176,6 +181,30 @@ async function main() {
       <changefreq>weekly</changefreq>
       <priority>0.6</priority>
     </url>`);
+  }
+
+  // ジャンル特集ページ
+  for (const feature of genreFeatures) {
+    if (feature.slug) {
+      urls.push(`
+    <url>
+      <loc>${BASE_URL}/features/genre/${encodeURIComponent(feature.slug)}/</loc>
+      <changefreq>weekly</changefreq>
+      <priority>0.7</priority>
+    </url>`);
+    }
+  }
+
+  // サークル特集ページ
+  for (const feature of circleFeatures) {
+    if (feature.slug) {
+      urls.push(`
+    <url>
+      <loc>${BASE_URL}/features/circle/${encodeURIComponent(feature.slug)}/</loc>
+      <changefreq>weekly</changefreq>
+      <priority>0.7</priority>
+    </url>`);
+    }
   }
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>

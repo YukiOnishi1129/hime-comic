@@ -12,6 +12,12 @@ export function Footer() {
           <Link href="/sale" className="hover:text-foreground">
             セール
           </Link>
+          <Link href="/features/genre" className="hover:text-foreground">
+            ジャンル特集
+          </Link>
+          <Link href="/features/circle" className="hover:text-foreground">
+            サークル特集
+          </Link>
           <Link href="/features/daily" className="hover:text-foreground">
             おすすめ
           </Link>
