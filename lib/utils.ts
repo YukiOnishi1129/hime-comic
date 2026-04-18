@@ -40,5 +40,5 @@ export function formatDiscount(rate: number): string {
  */
 export function getFanzaUrl(contentId: string): string {
   const rawUrl = `https://www.dmm.co.jp/dc/doujin/-/detail/=/cid=${contentId}/`;
-  return `https://al.dmm.co.jp/?lurl=${encodeURIComponent(rawUrl)}&af_id=monodata-992&ch=link_tool&ch_id=link`;
+  return `https://al.dmm.co.jp/?lurl=${encodeURIComponent(rawUrl)}&af_id=monodata-996&ch=link_tool&ch_id=link`;
 }

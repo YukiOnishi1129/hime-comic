@@ -17,8 +17,8 @@ import type { Metadata } from "next";
 export const dynamic = "force-static";
 
 export const metadata: Metadata = {
-  title: "サークル一覧 | DJ-ADB",
-  description: "同人コミック・CGを手掛けるサークル一覧。お気に入りのサークルを見つけよう。",
+  title: "サークル一覧 | ひめコミ",
+  description: "TL・乙女向け同人コミックを手掛けるサークル一覧。お気に入りのサークルを見つけよう。",
 };
 
 export default async function CirclesPage() {

@@ -4,7 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { MobileNav } from "@/components/mobile-nav";
 import "./globals.css";
 
-const GA_MEASUREMENT_ID = "G-CW6YS7PYBW";
+const GA_MEASUREMENT_ID = "";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,12 +18,12 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "DJ-ADB | 同人コミック・CGデータベース",
-    template: "%s | DJ-ADB",
+    default: "ひめコミ | TL・乙女向け同人コミックまとめ",
+    template: "%s | ひめコミ",
   },
   description:
-    "同人コミック・CGの最新ランキング、セール情報、おすすめ作品を毎日更新。FANZAの人気作品をチェック！",
-  keywords: ["同人", "コミック", "CG", "FANZA", "セール", "ランキング"],
+    "TL・乙女向け同人コミックの最新ランキング、セール情報、おすすめ作品を毎日更新。DLsite・FANZAの人気作品をチェック！",
+  keywords: ["TL", "乙女", "同人", "コミック", "DLsite", "FANZA", "セール", "ランキング"],
   robots: "index, follow",
   icons: {
     icon: "/favicon.ico",
@@ -40,9 +40,9 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "ja_JP",
-    siteName: "DJ-ADB",
+    siteName: "ひめコミ",
     images: [
-      { url: "https://dj-adb.com/ogp/recommendation_ogp.png", width: 1200, height: 630 },
+      { url: "https://hime-comic.com/ogp/recommendation_ogp.png", width: 1200, height: 630 },
     ],
   },
   twitter: {
@@ -56,7 +56,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja" className="dark">
+    <html lang="ja">
       <head>
         {/* Google Analytics */}
         <Script
@@ -71,19 +71,6 @@ export default function RootLayout({
             gtag('config', '${GA_MEASUREMENT_ID}');
           `}
         </Script>
-        {/* テーマ初期化（FOUC防止） */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                var theme = localStorage.getItem('theme');
-                if (theme === 'light') {
-                  document.documentElement.classList.remove('dark');
-                }
-              })();
-            `,
-          }}
-        />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}

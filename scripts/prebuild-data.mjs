@@ -92,7 +92,7 @@ async function main() {
   // キャッシュディレクトリ作成
   mkdirSync(CACHE_DIR, { recursive: true });
 
-  // 全Parquetファイルをダウンロード（dj-adb用）
+  // 全Parquetファイルをダウンロード（hime-comic用）
   const files = [
     "works.parquet",
     "circles.parquet",

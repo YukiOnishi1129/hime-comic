@@ -8,7 +8,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const BASE_URL = "https://dj-adb.com";
+const BASE_URL = "https://hime-comic.com";
 
 function loadJson(filename) {
   const CACHE_DIR = join(__dirname, "../.cache/data");

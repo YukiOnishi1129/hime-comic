@@ -7,7 +7,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "作品一覧",
-  description: "同人コミック・CGの作品一覧。ランキング順に表示。",
+  description: "TL・乙女向け同人コミックの作品一覧。ランキング順に表示。",
 };
 
 export const dynamic = "force-static";
@@ -48,7 +48,7 @@ export default async function WorksPage() {
         <div className="mb-4">
           <h1 className="mb-2 text-2xl font-bold text-foreground">作品一覧</h1>
           <p className="text-sm text-muted-foreground">
-            同人コミック・CGデータベース - {works.length}作品収録
+            TL・乙女向け同人コミックデータベース - {works.length}作品収録
           </p>
         </div>
 

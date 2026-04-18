@@ -6,8 +6,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { getWorks } from "@/lib/parquet";
 
 export const metadata: Metadata = {
-  title: "タグ一覧 | DJ-ADB",
-  description: "同人コミック・CG集のタグ一覧。ジャンルから作品を探せます。",
+  title: "タグ一覧 | ひめコミ",
+  description: "TL・乙女向け同人コミックのタグ一覧。ジャンルから作品を探せます。",
 };
 
 export const dynamic = "force-static";

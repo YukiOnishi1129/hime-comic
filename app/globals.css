@@ -1,68 +1,36 @@
 @import "tailwindcss";
 
 :root {
-  /* ライトモード基調 */
-  --background: #fafafa;
-  --foreground: #18181b;
+  /* ライトモード - 淡いローズ系（ひめコミ） */
+  --background: #fff8f8;
+  --foreground: #3d2638;
   --card: #ffffff;
-  --card-foreground: #18181b;
+  --card-foreground: #3d2638;
   --popover: #ffffff;
-  --popover-foreground: #18181b;
-  --primary: #1e3a5f;
-  --primary-foreground: #fafafa;
-  --secondary: #f4f4f5;
-  --secondary-foreground: #18181b;
-  --muted: #f4f4f5;
-  --muted-foreground: #71717a;
-  --accent: #ec4899;
-  --accent-foreground: #fafafa;
+  --popover-foreground: #3d2638;
+  --primary: #d14d7a;
+  --primary-foreground: #ffffff;
+  --secondary: #fce8ee;
+  --secondary-foreground: #3d2638;
+  --muted: #fce8ee;
+  --muted-foreground: #8c6677;
+  --accent: #e86a91;
+  --accent-foreground: #ffffff;
   --destructive: #ef4444;
-  --destructive-foreground: #fafafa;
-  --border: #e4e4e7;
-  --input: #e4e4e7;
-  --ring: #ec4899;
+  --destructive-foreground: #ffffff;
+  --border: #f5d5e0;
+  --input: #f5d5e0;
+  --ring: #d14d7a;
   --radius: 0.5rem;
 
   /* カスタムカラー */
   --sale: #ea580c;
   --sale-foreground: #ffffff;
   --warning: #f59e0b;
-  --badge-circle: #dbeafe;
-  --badge-circle-foreground: #1e40af;
-  --badge-tag: #f3e8ff;
-  --badge-tag-foreground: #7c3aed;
-}
-
-/* ダークモード - デフォルト */
-.dark {
-  --background: #0b0e14;
-  --foreground: #e4e4e7;
-  --card: #12161f;
-  --card-foreground: #e4e4e7;
-  --popover: #12161f;
-  --popover-foreground: #e4e4e7;
-  --primary: #f472b6;
-  --primary-foreground: #0b0e14;
-  --secondary: #1a1f2a;
-  --secondary-foreground: #e4e4e7;
-  --muted: #1a1f2a;
-  --muted-foreground: #9ca3af;
-  --accent: #ec4899;
-  --accent-foreground: #e4e4e7;
-  --destructive: #f87171;
-  --destructive-foreground: #e4e4e7;
-  --border: #2a3140;
-  --input: #2a3140;
-  --ring: #ec4899;
-
-  /* カスタムカラー（ダーク用） */
-  --sale: #fb923c;
-  --sale-foreground: #ffffff;
-  --warning: #fbbf24;
-  --badge-circle: #1e3a5f;
-  --badge-circle-foreground: #93c5fd;
-  --badge-tag: #3b1d5f;
-  --badge-tag-foreground: #c4b5fd;
+  --badge-circle: #ffe4ec;
+  --badge-circle-foreground: #b83865;
+  --badge-tag: #f9e0e9;
+  --badge-tag-foreground: #a83460;
 }
 
 @theme inline {

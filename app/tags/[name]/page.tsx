@@ -48,12 +48,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (tagWorks.length === 0) {
     return {
-      title: "タグが見つかりません | DJ-ADB",
+      title: "タグが見つかりません | ひめコミ",
     };
   }
 
-  const title = `「${decodedName}」タグの作品レビュー一覧（${tagWorks.length}作品） | DJ-ADB`;
-  const description = `「${decodedName}」タグが付いた同人コミック・CG集${tagWorks.length}作品を掲載。`;
+  const title = `「${decodedName}」タグの作品レビュー一覧（${tagWorks.length}作品） | ひめコミ`;
+  const description = `「${decodedName}」タグが付いたTL・乙女向け同人コミック${tagWorks.length}作品を掲載。`;
 
   return {
     title,

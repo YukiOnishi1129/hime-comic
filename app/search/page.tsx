@@ -10,7 +10,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "作品検索",
-  description: "同人コミック・CG作品を検索。タイトル、作者、サークル、タグで絞り込み。",
+  description: "TL・乙女向け同人コミック作品を検索。タイトル、作者、サークル、タグで絞り込み。",
 };
 
 export const dynamic = "force-static";

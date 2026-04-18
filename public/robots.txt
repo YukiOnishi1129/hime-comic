@@ -3,4 +3,4 @@ Allow: /
 Disallow: /api/
 Disallow: /privacy
 
-Sitemap: https://dj-adb.com/sitemap.xml
+Sitemap: https://hime-comic.com/sitemap.xml

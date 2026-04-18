@@ -8,7 +8,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "性癖特集",
   description:
-    "性癖別の同人コミック・CG集を厳選して特集。フェラ、巨乳、NTR、制服など人気ジャンルのおすすめ作品をご紹介。",
+    "性癖別のTL・乙女向け同人コミックを厳選して特集。フェラ、巨乳、NTR、制服など人気ジャンルのおすすめ作品をご紹介。",
 };
 
 export const dynamic = "force-static";
@@ -39,7 +39,7 @@ export default async function GenreFeaturePage() {
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-foreground">性癖特集</h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            性癖別に厳選した同人コミック・CG集をご紹介
+            性癖別に厳選したTL・乙女向け同人コミックをご紹介
           </p>
         </div>
 

@@ -32,7 +32,7 @@ export const dynamic = "force-static";
 export async function generateMetadata(): Promise<Metadata> {
   const feature = await getLatestSaleFeature();
 
-  const title = "今日のセール特集 | DJ-ADB";
+  const title = "今日のセール特集 | ひめコミ";
   const description = feature?.main_headline
     ? `${feature.main_headline} - セール中のおすすめ作品を厳選。迷ったらここから選べばハズレなし。`
     : "セール中のおすすめ作品を厳選。迷ったらここから選べばハズレなし。";

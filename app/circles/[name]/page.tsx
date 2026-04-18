@@ -19,12 +19,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (works.length === 0) {
     return {
-      title: "サークルが見つかりません | DJ-ADB",
+      title: "サークルが見つかりません | ひめコミ",
     };
   }
 
-  const title = `${decodedName}の作品レビュー一覧（${works.length}作品） | DJ-ADB`;
-  const description = `サークル「${decodedName}」の同人コミック・CG ${works.length}作品を掲載。`;
+  const title = `${decodedName}の作品レビュー一覧（${works.length}作品） | ひめコミ`;
+  const description = `サークル「${decodedName}」のTL・乙女向け同人コミック ${works.length}作品を掲載。`;
 
   return {
     title,

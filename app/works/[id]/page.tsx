@@ -50,7 +50,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const description = `${leadPrefix}${baseDesc}`;
 
   return {
-    title: `${salePrefix}${work.title} レビュー・感想 | DJ-ADB`,
+    title: `${salePrefix}${work.title} レビュー・感想 | ひめコミ`,
     description,
     openGraph: {
       images: work.thumbnail_url ? [work.thumbnail_url] : [],
@@ -418,7 +418,7 @@ export default async function WorkDetailPage({ params }: Props) {
             <Card className="bg-gradient-to-br from-purple-50 to-indigo-50 dark:from-purple-950 dark:to-indigo-950 border-purple-200 dark:border-purple-800">
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm font-bold text-gray-900 dark:text-gray-100">
-                  📝 DJ-ADB編集部レビュー
+                  📝 ひめコミ編集部レビュー
                 </CardTitle>
               </CardHeader>
               <CardContent>

@@ -46,17 +46,95 @@ function loadJson<T>(filename: string): T[] {
  */
 export async function getWorks(): Promise<Work[]> {
   if (worksCache === null) {
-    const rawWorks = loadJson<Work>("works.json");
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const rawWorks = loadJson<any>("works.json");
     const circles = loadJson<Circle>("circles.json");
 
     // circle_idからcircle_nameをマッピング
     const circleMap = new Map(circles.map((c) => [c.id, c.name]));
 
-    // circle_nameを補完
-    worksCache = rawWorks.map((work) => ({
-      ...work,
-      circle_name: work.circle_name || circleMap.get(work.circle_id) || "不明",
-    }));
+    // hime-comicのDB構造 → dj-adbフロント互換形式に変換
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    worksCache = rawWorks.map((work: any) => {
+      // 価格: DLsite優先、なければFANZA
+      const priceDlsite = work.price_dlsite ?? null;
+      const priceFanza = work.price_fanza ?? null;
+      const price = priceDlsite ?? priceFanza ?? 0;
+
+      // セール価格
+      const discountDlsite = work.discount_rate_dlsite ?? 0;
+      const discountFanza = work.discount_rate_fanza ?? 0;
+      const discount_rate = Math.max(discountDlsite, discountFanza);
+      const sale_price = discount_rate > 0
+        ? Math.round(price * (1 - discount_rate / 100))
+        : null;
+
+      // 評価
+      const rating = work.rating_dlsite ?? work.rating_fanza ?? null;
+      const review_count = work.review_count_dlsite ?? work.review_count_fanza ?? null;
+
+      // ランキング
+      const ranking = work.dlsite_rank ?? work.fanza_rank ?? null;
+
+      // サンプル画像（文字列化されてる可能性があるのでパース）
+      let sample_images = work.sample_images;
+      if (typeof sample_images === "string") {
+        try {
+          sample_images = JSON.parse(sample_images);
+        } catch {
+          sample_images = null;
+        }
+      }
+
+      // AIタグ
+      let genre_tags = work.ai_tags;
+      if (typeof genre_tags === "string") {
+        try {
+          genre_tags = JSON.parse(genre_tags);
+        } catch {
+          genre_tags = null;
+        }
+      }
+
+      // サムネイル優先順: thumbnail_url → サンプル画像の最初
+      const thumbnail_url = work.thumbnail_url
+        || (Array.isArray(sample_images) && sample_images[0])
+        || "";
+
+      // content_id: dlsite優先、なければfanza
+      const fanza_content_id = work.dlsite_product_id || work.fanza_product_id || "";
+
+      return {
+        id: work.id,
+        fanza_content_id,
+        title: work.title,
+        price,
+        sale_price,
+        discount_rate,
+        thumbnail_url,
+        sample_images: Array.isArray(sample_images) ? sample_images : null,
+        circle_id: work.circle_id,
+        circle_name: work.circle_name || circleMap.get(work.circle_id) || "不明",
+        author_name: null,
+        rating,
+        review_count,
+        page_count: null,
+        ranking,
+        is_posted: 0,
+        posted_at: null,
+        x_post_id: null,
+        sale_end_date: work.sale_end_date_dlsite ?? work.sale_end_date_fanza ?? null,
+        ai_summary: work.ai_summary,
+        ai_appeal_points: work.ai_appeal_points,
+        ai_target_audience: work.ai_target_audience,
+        ai_recommend_reason: work.ai_recommend_reason,
+        ai_warnings: work.ai_warnings,
+        ai_review: work.ai_review,
+        genre_tags: Array.isArray(genre_tags) ? genre_tags : null,
+        created_at: work.created_at,
+        updated_at: work.updated_at,
+      } as Work;
+    });
 
     console.log(`Loaded ${worksCache.length} works from cache`);
   }

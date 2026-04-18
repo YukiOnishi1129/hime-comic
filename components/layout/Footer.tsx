@@ -4,7 +4,7 @@ export function Footer() {
   return (
     <footer className="mt-16 border-t border-border bg-secondary py-8">
       <div className="mx-auto max-w-7xl px-6 text-center text-sm text-foreground/60">
-        <p className="mb-2">DJ-ADB - 同人コミック・CGデータベース</p>
+        <p className="mb-2">ひめコミ - TL・乙女向け同人コミックまとめ</p>
         <div className="mb-4 flex justify-center gap-4">
           <Link href="/works" className="hover:text-foreground">
             作品一覧
@@ -26,8 +26,8 @@ export function Footer() {
         <div className="mb-4">
           <p className="mb-2 text-xs text-foreground/40">姉妹サイト</p>
           <div className="flex flex-wrap justify-center gap-4">
-            <a href="https://2d-adb.com" className="hover:text-foreground" target="_blank" rel="noopener noreferrer">
-              2D-ADB（二次元ASMR）
+            <a href="https://tl-toroama.com" className="hover:text-foreground" target="_blank" rel="noopener noreferrer">
+              とろあま（TL・乙女ASMR＆ゲーム）
             </a>
           </div>
         </div>

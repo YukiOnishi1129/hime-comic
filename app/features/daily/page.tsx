@@ -28,10 +28,10 @@ export const dynamic = "force-static";
 export async function generateMetadata(): Promise<Metadata> {
   const recommendation = await getLatestDailyRecommendation();
 
-  const title = "今日のおすすめ | DJ-ADB";
+  const title = "今日のおすすめ | ひめコミ";
   const description = recommendation?.headline
-    ? `${recommendation.headline} - 毎日更新！おすすめの同人コミック・CG作品を厳選して紹介。`
-    : "毎日更新！おすすめの同人コミック・CG作品を厳選して紹介。";
+    ? `${recommendation.headline} - 毎日更新！おすすめのTL・乙女向け同人コミック作品を厳選して紹介。`
+    : "毎日更新！おすすめのTL・乙女向け同人コミック作品を厳選して紹介。";
 
   return {
     title,
@@ -41,14 +41,14 @@ export async function generateMetadata(): Promise<Metadata> {
       description,
       type: "website",
       images: [
-        { url: "https://dj-adb.com/ogp/recommendation_ogp.png", width: 1200, height: 630 },
+        { url: "https://hime-comic.com/ogp/recommendation_ogp.png", width: 1200, height: 630 },
       ],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: ["https://dj-adb.com/ogp/recommendation_ogp.png"],
+      images: ["https://hime-comic.com/ogp/recommendation_ogp.png"],
     },
   };
 }

@@ -103,7 +103,7 @@ jobs:
             --exclude 'api/' \
             -e "ssh -p ${SSH_PORT} -o ServerAliveInterval=15 -o ServerAliveCountMax=20" \
             ./out/ \
-            ${SSH_USERNAME}@${SSH_HOST}:~/dj-adb.com/public_html/
+            ${SSH_USERNAME}@${SSH_HOST}:~/hime-comic.com/public_html/
 
       - name: Calculate duration
         if: ${{ always() }}
@@ -124,7 +124,7 @@ jobs:
             -d @- << EOF
           {
             "embeds": [{
-              "title": "✅ DJ-ADB デプロイ完了",
+              "title": "✅ ひめコミ デプロイ完了",
               "color": 5763719,
               "fields": [
                 {
@@ -154,7 +154,7 @@ jobs:
                 },
                 {
                   "name": "🔗 サイト",
-                  "value": "[dj-adb.com](https://dj-adb.com)",
+                  "value": "[hime-comic.com](https://hime-comic.com)",
                   "inline": true
                 }
               ],
@@ -185,7 +185,7 @@ jobs:
             -d @- << EOF
           {
             "embeds": [{
-              "title": "❌ DJ-ADB デプロイ失敗",
+              "title": "❌ ひめコミ デプロイ失敗",
               "color": 15548997,
               "fields": [
                 {

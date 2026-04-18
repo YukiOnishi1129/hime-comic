@@ -41,8 +41,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return { title: "サークル特集が見つかりません" };
   }
 
-  const title = `${feature.circle_name}特集 - おすすめ同人コミックレビュー厳選${feature.works.length}作品 | DJ-ADB`;
-  const description = feature.description || `${feature.circle_name}の人気同人コミック・CG集を厳選。迷ったらここから選べばハズレなし。`;
+  const title = `${feature.circle_name}特集 - おすすめ同人コミックレビュー厳選${feature.works.length}作品 | ひめコミ`;
+  const description = feature.description || `${feature.circle_name}の人気TL・乙女向け同人コミックを厳選。迷ったらここから選べばハズレなし。`;
 
   return {
     title,

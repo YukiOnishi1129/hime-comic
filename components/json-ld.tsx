@@ -69,7 +69,7 @@ export function ReviewJsonLd({ work }: ProductJsonLdProps) {
     },
     author: {
       "@type": "Organization",
-      name: "DJ-ADB",
+      name: "ひめコミ",
     },
     reviewBody: reviewBody,
   };
@@ -89,7 +89,7 @@ interface BreadcrumbJsonLdProps {
 
 export function BreadcrumbJsonLd({
   items,
-  baseUrl = "https://dj-adb.com",
+  baseUrl = "https://hime-comic.com",
 }: BreadcrumbJsonLdProps) {
   const jsonLd = {
     "@context": "https://schema.org",

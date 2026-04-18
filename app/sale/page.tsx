@@ -11,11 +11,11 @@ import {
 import { Flame } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "セール中の作品一覧 | DJ-ADB",
-  description: "今お得に買える同人コミック・CG作品をまとめてチェック。割引率・価格順で並び替え可能。",
+  title: "セール中の作品一覧 | ひめコミ",
+  description: "今お得に買えるTL・乙女向け同人コミック作品をまとめてチェック。割引率・価格順で並び替え可能。",
   openGraph: {
-    title: "セール中の作品一覧 | DJ-ADB",
-    description: "今お得に買える同人コミック・CG作品をまとめてチェック。",
+    title: "セール中の作品一覧 | ひめコミ",
+    description: "今お得に買えるTL・乙女向け同人コミック作品をまとめてチェック。",
     type: "website",
   },
 };
