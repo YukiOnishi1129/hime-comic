@@ -17,6 +17,9 @@
 /.next/
 /out/
 
+# prebuild cache (regenerated on build)
+/.cache/
+
 # production
 /build
 
