@@ -9,6 +9,19 @@ export const metadata: Metadata = {
   title: "性癖特集",
   description:
     "性癖別のTL・乙女向け同人コミックを厳選して特集。フェラ、巨乳、NTR、制服など人気ジャンルのおすすめ作品をご紹介。",
+  openGraph: {
+    title: "性癖特集 | ひめコミ",
+    description:
+      "性癖別のTL・乙女向け同人コミックを厳選して特集。フェラ、巨乳、NTR、制服など人気ジャンルのおすすめ作品をご紹介。",
+    type: "website",
+    images: [
+      { url: "https://hime-comic.com/ogp/recommendation_ogp.png", width: 1200, height: 630 },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["https://hime-comic.com/ogp/recommendation_ogp.png"],
+  },
 };
 
 export const dynamic = "force-static";

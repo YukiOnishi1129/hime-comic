@@ -11,6 +11,18 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "作品検索",
   description: "TL・乙女向け同人コミック作品を検索。タイトル、作者、サークル、タグで絞り込み。",
+  openGraph: {
+    title: "作品検索 | ひめコミ",
+    description: "TL・乙女向け同人コミック作品を検索。タイトル、作者、サークル、タグで絞り込み。",
+    type: "website",
+    images: [
+      { url: "https://hime-comic.com/ogp/recommendation_ogp.png", width: 1200, height: 630 },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["https://hime-comic.com/ogp/recommendation_ogp.png"],
+  },
 };
 
 export const dynamic = "force-static";

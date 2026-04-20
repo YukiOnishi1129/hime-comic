@@ -9,6 +9,18 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "サークル特集",
   description: "注目サークルの作品を特集！人気サークルの魅力をご紹介。",
+  openGraph: {
+    title: "サークル特集 | ひめコミ",
+    description: "注目サークルの作品を特集！人気サークルの魅力をご紹介。",
+    type: "website",
+    images: [
+      { url: "https://hime-comic.com/ogp/recommendation_ogp.png", width: 1200, height: 630 },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["https://hime-comic.com/ogp/recommendation_ogp.png"],
+  },
 };
 
 export const dynamic = "force-static";

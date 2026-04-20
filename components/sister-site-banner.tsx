@@ -2,7 +2,7 @@
 
 export function SisterSiteBanner() {
   const handleClick = () => {
-    window.gtag?.("event", "sister_site_click_to_2d_adb", {
+    window.gtag?.("event", "sister_site_click_to_tl_toroama", {
       source_page: window.location.pathname,
     });
   };
@@ -10,7 +10,7 @@ export function SisterSiteBanner() {
   return (
     <section className="mt-10 mb-4">
       <a
-        href="https://2d-adb.com"
+        href="https://tl-toroama.com"
         target="_blank"
         rel="noopener noreferrer"
         className="block overflow-hidden rounded-lg border border-border hover:border-primary/50 transition-all"
@@ -18,17 +18,17 @@ export function SisterSiteBanner() {
       >
         <div className="relative aspect-[1200/630] w-full">
           <img
-            src="https://2d-adb.com/ogp/recommendation_ogp.png"
-            alt="2D-ADB｜ASMR・同人音声の厳選おすすめ作品"
+            src="https://tl-toroama.com/ogp/recommendation_ogp.png"
+            alt="とろあま｜女性向けASMR・TL・乙女ゲームの厳選おすすめ作品"
             className="h-full w-full object-cover"
           />
         </div>
         <div className="bg-card p-3 text-center">
           <p className="text-sm font-bold text-foreground">
-            姉妹サイト「2D-ADB」もチェック！
+            姉妹サイト「とろあま」もチェック！
           </p>
           <p className="mt-1 text-xs text-muted-foreground">
-            ASMR・同人音声のおすすめランキング・セール情報を毎日更新中
+            女性向けASMR・TL・乙女ゲームのおすすめランキング・セール情報を毎日更新中
           </p>
         </div>
       </a>

@@ -17,6 +17,13 @@ export const metadata: Metadata = {
     title: "セール中の作品一覧 | ひめコミ",
     description: "今お得に買えるTL・乙女向け同人コミック作品をまとめてチェック。",
     type: "website",
+    images: [
+      { url: "https://hime-comic.com/ogp/recommendation_ogp.png", width: 1200, height: 630 },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["https://hime-comic.com/ogp/recommendation_ogp.png"],
   },
 };
 

@@ -47,6 +47,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    images: ["https://hime-comic.com/ogp/recommendation_ogp.png"],
   },
 };
 

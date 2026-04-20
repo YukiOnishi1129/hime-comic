@@ -19,6 +19,18 @@ export const dynamic = "force-static";
 export const metadata: Metadata = {
   title: "サークル一覧 | ひめコミ",
   description: "TL・乙女向け同人コミックを手掛けるサークル一覧。お気に入りのサークルを見つけよう。",
+  openGraph: {
+    title: "サークル一覧 | ひめコミ",
+    description: "TL・乙女向け同人コミックを手掛けるサークル一覧。お気に入りのサークルを見つけよう。",
+    type: "website",
+    images: [
+      { url: "https://hime-comic.com/ogp/recommendation_ogp.png", width: 1200, height: 630 },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["https://hime-comic.com/ogp/recommendation_ogp.png"],
+  },
 };
 
 export default async function CirclesPage() {
