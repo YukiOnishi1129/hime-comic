@@ -70,7 +70,6 @@ async function main() {
     { path: "/features/sale/", priority: "0.8", changefreq: "daily" },
     { path: "/features/genre/", priority: "0.8", changefreq: "weekly" },
     { path: "/features/circle/", priority: "0.8", changefreq: "weekly" },
-    { path: "/search/", priority: "0.7", changefreq: "weekly" },
     { path: "/tags/", priority: "0.7", changefreq: "weekly" },
     { path: "/circles/", priority: "0.7", changefreq: "weekly" },
   ];

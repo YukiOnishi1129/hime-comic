@@ -13,6 +13,7 @@ import {
 import { Palette, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import type { Metadata } from "next";
+import { ItemListJsonLd, BreadcrumbJsonLd } from "@/components/json-ld";
 
 export const dynamic = "force-static";
 
@@ -54,6 +55,18 @@ export default async function CirclesPage() {
 
   return (
     <div className="min-h-screen bg-background">
+      <BreadcrumbJsonLd
+        items={[
+          { label: "ホーム", href: "/" },
+          { label: "サークル一覧", href: "/circles" },
+        ]}
+      />
+      <ItemListJsonLd
+        items={circles.slice(0, 30).map((c) => ({
+          url: `/circles/${encodeURIComponent(c.name)}`,
+          name: c.name,
+        }))}
+      />
       <Header />
 
       <main className="mx-auto max-w-3xl px-4 py-4">

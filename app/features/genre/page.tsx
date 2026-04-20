@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Heart, BookOpen } from "lucide-react";
 import { Header, Footer } from "@/components/layout";
 import { getGenreFeatures } from "@/lib/parquet";
+import { ItemListJsonLd, BreadcrumbJsonLd } from "@/components/json-ld";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -36,6 +37,19 @@ export default async function GenreFeaturePage() {
 
   return (
     <div className="min-h-screen bg-background">
+      <BreadcrumbJsonLd
+        items={[
+          { label: "ホーム", href: "/" },
+          { label: "性癖特集", href: "/features/genre" },
+        ]}
+      />
+      <ItemListJsonLd
+        items={sortedFeatures.map((f) => ({
+          url: `/features/genre/${f.slug}`,
+          name: f.name || f.headline || f.slug,
+          image: f.thumbnail_url || undefined,
+        }))}
+      />
       <Header />
 
       <main className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">

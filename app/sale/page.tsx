@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Header, Footer } from "@/components/layout";
 import { SaleFilterSort } from "@/components/sale-filter-sort";
 import { FeaturedBanners } from "@/components/featured-banners";
+import { ItemListJsonLd, BreadcrumbJsonLd } from "@/components/json-ld";
 import {
   getSaleWorks,
   getLatestSaleFeature,
@@ -54,6 +55,19 @@ export default async function SalePage() {
 
   return (
     <div className="min-h-screen bg-background">
+      <BreadcrumbJsonLd
+        items={[
+          { label: "ホーム", href: "/" },
+          { label: "セール中の作品一覧", href: "/sale" },
+        ]}
+      />
+      <ItemListJsonLd
+        items={saleWorks.slice(0, 30).map((w) => ({
+          url: `/works/${w.id}`,
+          name: w.title,
+          image: w.thumbnail_url || undefined,
+        }))}
+      />
       <Header />
 
       <main className="mx-auto max-w-5xl px-4 py-4">

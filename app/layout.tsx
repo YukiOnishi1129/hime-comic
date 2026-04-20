@@ -17,6 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://hime-comic.com"),
   title: {
     default: "ひめコミ | TL・乙女向け同人コミックまとめ",
     template: "%s | ひめコミ",

@@ -2,5 +2,6 @@ User-agent: *
 Allow: /
 Disallow: /api/
 Disallow: /privacy
+Disallow: /search
 
 Sitemap: https://hime-comic.com/sitemap.xml

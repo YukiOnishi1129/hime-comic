@@ -4,6 +4,7 @@ import { HorizontalScrollSection } from "@/components/horizontal-scroll-section"
 import { HeroSaleBanner } from "@/components/hero-sale-banner";
 import { FeaturedBanners } from "@/components/featured-banners";
 import { TrendingChips } from "@/components/trending-chips";
+import { WebSiteJsonLd, OrganizationJsonLd } from "@/components/json-ld";
 import { Badge } from "@/components/ui/badge";
 import {
   getWorks,
@@ -79,6 +80,8 @@ export default async function Home() {
 
   return (
     <div className="min-h-screen bg-background">
+      <WebSiteJsonLd />
+      <OrganizationJsonLd />
       <Header />
 
       <main className="mx-auto max-w-7xl px-6 py-4">

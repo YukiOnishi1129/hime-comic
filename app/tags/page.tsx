@@ -4,6 +4,7 @@ import { Header, Footer } from "@/components/layout";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { getWorks } from "@/lib/parquet";
+import { ItemListJsonLd, BreadcrumbJsonLd } from "@/components/json-ld";
 
 export const metadata: Metadata = {
   title: "タグ一覧 | ひめコミ",
@@ -41,6 +42,18 @@ export default async function TagsPage() {
 
   return (
     <div className="min-h-screen bg-background">
+      <BreadcrumbJsonLd
+        items={[
+          { label: "ホーム", href: "/" },
+          { label: "タグ一覧", href: "/tags" },
+        ]}
+      />
+      <ItemListJsonLd
+        items={sortedTags.slice(0, 50).map(([tag]) => ({
+          url: `/tags/${encodeURIComponent(tag)}`,
+          name: tag,
+        }))}
+      />
       <Header />
 
       <main className="mx-auto max-w-5xl px-4 py-8">

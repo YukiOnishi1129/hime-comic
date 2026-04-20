@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Header, Footer } from "@/components/layout";
 import { WorkCard } from "@/components/work";
+import { ItemListJsonLd, BreadcrumbJsonLd } from "@/components/json-ld";
 import { Badge } from "@/components/ui/badge";
 import { getWorks, getCircleFeatures, getLatestSaleFeature } from "@/lib/parquet";
 import type { Metadata } from "next";
@@ -53,6 +54,19 @@ export default async function WorksPage() {
 
   return (
     <div className="min-h-screen bg-background">
+      <BreadcrumbJsonLd
+        items={[
+          { label: "ホーム", href: "/" },
+          { label: "作品一覧", href: "/works" },
+        ]}
+      />
+      <ItemListJsonLd
+        items={rankedWorks.map((w) => ({
+          url: `/works/${w.id}`,
+          name: w.title,
+          image: w.thumbnail_url || undefined,
+        }))}
+      />
       <Header />
 
       <main className="mx-auto max-w-5xl px-4 py-8">

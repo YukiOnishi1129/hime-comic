@@ -4,6 +4,7 @@ import { Star, Users } from "lucide-react";
 import { Header, Footer } from "@/components/layout";
 import { getCircleFeatures } from "@/lib/parquet";
 import { formatRating } from "@/lib/utils";
+import { ItemListJsonLd, BreadcrumbJsonLd } from "@/components/json-ld";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -30,6 +31,19 @@ export default async function CircleFeaturePage() {
 
   return (
     <div className="min-h-screen bg-background">
+      <BreadcrumbJsonLd
+        items={[
+          { label: "ホーム", href: "/" },
+          { label: "サークル特集", href: "/features/circle" },
+        ]}
+      />
+      <ItemListJsonLd
+        items={features.map((f) => ({
+          url: `/features/circle/${f.slug}`,
+          name: f.headline || f.circle_name || f.slug,
+          image: f.thumbnail_url || undefined,
+        }))}
+      />
       <Header />
 
       <main className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">

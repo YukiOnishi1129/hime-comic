@@ -109,3 +109,83 @@ export function BreadcrumbJsonLd({
     />
   );
 }
+
+export function WebSiteJsonLd() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "ひめコミ",
+    alternateName: "ひめコミ｜TL・乙女向け同人コミックまとめ",
+    url: "https://hime-comic.com",
+    inLanguage: "ja",
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: "https://hime-comic.com/search?q={search_term_string}",
+      },
+      "query-input": "required name=search_term_string",
+    },
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    />
+  );
+}
+
+export function OrganizationJsonLd() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "ひめコミ",
+    url: "https://hime-comic.com",
+    logo: "https://hime-comic.com/favicon-256.png",
+    description:
+      "TL・乙女向け同人コミックの最新ランキング、セール情報、おすすめ作品を毎日更新するキュレーションサイト。",
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    />
+  );
+}
+
+interface ItemListJsonLdItem {
+  url: string;
+  name: string;
+  image?: string;
+}
+
+interface ItemListJsonLdProps {
+  items: ItemListJsonLdItem[];
+  baseUrl?: string;
+}
+
+export function ItemListJsonLd({
+  items,
+  baseUrl = "https://hime-comic.com",
+}: ItemListJsonLdProps) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      url: item.url.startsWith("http") ? item.url : `${baseUrl}${item.url}`,
+      name: item.name,
+      ...(item.image && { image: item.image }),
+    })),
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    />
+  );
+}
