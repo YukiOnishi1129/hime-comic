@@ -4,7 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { MobileNav } from "@/components/mobile-nav";
 import "./globals.css";
 
-const GA_MEASUREMENT_ID = "";
+const GA_MEASUREMENT_ID = "G-F6BMJ60CWG";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
