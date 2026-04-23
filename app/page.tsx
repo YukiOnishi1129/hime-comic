@@ -5,6 +5,7 @@ import { HeroSaleBanner } from "@/components/hero-sale-banner";
 import { FeaturedBanners } from "@/components/featured-banners";
 import { TrendingChips } from "@/components/trending-chips";
 import { WebSiteJsonLd, OrganizationJsonLd } from "@/components/json-ld";
+import { SisterSiteBanner } from "@/components/sister-site-banner";
 import { Badge } from "@/components/ui/badge";
 import {
   getWorks,
@@ -209,6 +210,9 @@ export default async function Home() {
             </div>
           </section>
         )}
+
+        {/* 姉妹サイトバナー */}
+        <SisterSiteBanner />
       </main>
 
       <Footer />
