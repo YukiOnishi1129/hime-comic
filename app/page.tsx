@@ -6,6 +6,11 @@ import { FeaturedBanners } from "@/components/featured-banners";
 import { TrendingChips } from "@/components/trending-chips";
 import { WebSiteJsonLd, OrganizationJsonLd } from "@/components/json-ld";
 import { SisterSiteBanner } from "@/components/sister-site-banner";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 import { Badge } from "@/components/ui/badge";
 import {
   getWorks,

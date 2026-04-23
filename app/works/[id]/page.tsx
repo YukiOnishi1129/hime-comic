@@ -52,6 +52,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${salePrefix}${work.title} レビュー・感想 | ひめコミ`,
     description,
+    alternates: { canonical: `/works/${id}/` },
     openGraph: {
       images: work.thumbnail_url ? [work.thumbnail_url] : [],
     },

@@ -9,6 +9,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "作品一覧",
   description: "TL・乙女向け同人コミックの作品一覧。ランキング順に表示。",
+  alternates: { canonical: "/works/" },
   openGraph: {
     title: "作品一覧 | ひめコミ",
     description: "TL・乙女向け同人コミックの作品一覧。ランキング順に表示。",

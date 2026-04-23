@@ -9,6 +9,7 @@ import { ItemListJsonLd, BreadcrumbJsonLd } from "@/components/json-ld";
 export const metadata: Metadata = {
   title: "タグ一覧 | ひめコミ",
   description: "TL・乙女向け同人コミックのタグ一覧。ジャンルから作品を探せます。",
+  alternates: { canonical: "/tags/" },
   openGraph: {
     title: "タグ一覧 | ひめコミ",
     description: "TL・乙女向け同人コミックのタグ一覧。ジャンルから作品を探せます。",

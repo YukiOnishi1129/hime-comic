@@ -20,6 +20,7 @@ export const dynamic = "force-static";
 export const metadata: Metadata = {
   title: "サークル一覧 | ひめコミ",
   description: "TL・乙女向け同人コミックを手掛けるサークル一覧。お気に入りのサークルを見つけよう。",
+  alternates: { canonical: "/circles/" },
   openGraph: {
     title: "サークル一覧 | ひめコミ",
     description: "TL・乙女向け同人コミックを手掛けるサークル一覧。お気に入りのサークルを見つけよう。",

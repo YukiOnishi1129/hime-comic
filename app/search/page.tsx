@@ -11,6 +11,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "作品検索",
   description: "TL・乙女向け同人コミック作品を検索。タイトル、作者、サークル、タグで絞り込み。",
+  alternates: { canonical: "/search/" },
   robots: {
     index: false,
     follow: true,

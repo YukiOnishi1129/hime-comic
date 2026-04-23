@@ -14,6 +14,7 @@ import { Flame } from "lucide-react";
 export const metadata: Metadata = {
   title: "セール中の作品一覧 | ひめコミ",
   description: "今お得に買えるTL・乙女向け同人コミック作品をまとめてチェック。割引率・価格順で並び替え可能。",
+  alternates: { canonical: "/sale/" },
   openGraph: {
     title: "セール中の作品一覧 | ひめコミ",
     description: "今お得に買えるTL・乙女向け同人コミック作品をまとめてチェック。",

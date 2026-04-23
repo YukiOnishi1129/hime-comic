@@ -10,6 +10,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "サークル特集",
   description: "注目サークルの作品を特集！人気サークルの魅力をご紹介。",
+  alternates: { canonical: "/features/circle/" },
   openGraph: {
     title: "サークル特集 | ひめコミ",
     description: "注目サークルの作品を特集！人気サークルの魅力をご紹介。",
