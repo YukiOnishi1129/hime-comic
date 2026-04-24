@@ -90,6 +90,7 @@ export function FixedPurchaseCta({
                 content_id: match ? match[1] : undefined,
                 work_id: workId,
                 source: "fixed_cta",
+                transport_type: "beacon",
               });
             }
           }}

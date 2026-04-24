@@ -37,6 +37,7 @@ export function FanzaLink({
         content_id: contentId,
         work_id: workId,
         ...(source ? { source } : {}),
+        transport_type: "beacon",
       });
     }
   };
