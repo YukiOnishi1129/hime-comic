@@ -3,7 +3,7 @@ import { Header, Footer } from "@/components/layout";
 import { HorizontalScrollSection } from "@/components/horizontal-scroll-section";
 import { HeroSaleBanner } from "@/components/hero-sale-banner";
 import { CampaignBanner } from "@/components/campaign-banner";
-import { isLoveculCampaignActive, getLoveculCampaignAffiliateUrl } from "@/lib/lovecul-campaign";
+import { isLoveculCampaignActive, getLoveculCampaignAffiliateUrl, CAMPAIGN_END_ISO as LOVECUL_END } from "@/lib/lovecul-campaign";
 import { FeaturedBanners } from "@/components/featured-banners";
 import { TrendingChips } from "@/components/trending-chips";
 import { WebSiteJsonLd, OrganizationJsonLd } from "@/components/json-ld";
@@ -104,6 +104,7 @@ export default async function Home() {
             title="春のらぶカルフェス 50%OFFクーポン"
             description="初回購入限定・先着2,000名・割引上限1,500円"
             ctaLabel="クーポンを見る →"
+            endDate={LOVECUL_END}
           />
         )}
 
