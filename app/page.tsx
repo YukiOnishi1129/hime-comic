@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Header, Footer } from "@/components/layout";
 import { HorizontalScrollSection } from "@/components/horizontal-scroll-section";
 import { HeroSaleBanner } from "@/components/hero-sale-banner";
+import { isLoveculCampaignActive, getLoveculCampaignAffiliateUrl } from "@/lib/lovecul-campaign";
 import { FeaturedBanners } from "@/components/featured-banners";
 import { TrendingChips } from "@/components/trending-chips";
 import { WebSiteJsonLd, OrganizationJsonLd } from "@/components/json-ld";
@@ -92,6 +93,29 @@ export default async function Home() {
 
       <main className="mx-auto max-w-7xl px-6 py-4">
         {/* セールバナー（コンパクト） */}
+        {/* 春のらぶカルフェス 50%OFFクーポンバナー（〜2026/05/18 11:59まで） */}
+        {isLoveculCampaignActive() && (
+          <a
+            href={getLoveculCampaignAffiliateUrl()}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mb-4 flex items-center justify-between gap-3 rounded-lg bg-gradient-to-r from-pink-400 via-pink-500 to-rose-500 p-4 text-white shadow-lg transition-transform hover:scale-[1.01]"
+          >
+            <div className="flex flex-col">
+              <span className="text-xs font-bold opacity-90">🌸 期間限定 〜5/18 11:59</span>
+              <span className="text-lg font-black tracking-wide md:text-xl">
+                春のらぶカルフェス 50%OFFクーポン
+              </span>
+              <span className="text-xs opacity-90">
+                初回購入限定・先着2,000名・割引上限1,500円
+              </span>
+            </div>
+            <span className="shrink-0 rounded-full bg-white/20 px-3 py-1.5 text-sm font-bold backdrop-blur">
+              クーポンを見る →
+            </span>
+          </a>
+        )}
+
         <HeroSaleBanner maxDiscount={maxDiscount} saleCount={saleWorks.length} />
 
         {/* 今日のおすすめ & セール特集 & サークル特集カルーセル */}
