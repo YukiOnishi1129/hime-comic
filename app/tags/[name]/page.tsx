@@ -6,6 +6,7 @@ import { Header, Footer } from "@/components/layout";
 import { WorkGridWithLoadMore } from "@/components/work";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { BreadcrumbJsonLd } from "@/components/json-ld";
 import { getWorks, getGenreFeatures } from "@/lib/parquet";
 import type { GenreFeature } from "@/types";
 
@@ -48,17 +49,35 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (tagWorks.length === 0) {
     return {
-      title: "タグが見つかりません | ひめコミ",
+      title: "タグが見つかりません",
     };
   }
 
-  const title = `「${decodedName}」タグの作品レビュー一覧（${tagWorks.length}作品） | ひめコミ`;
-  const description = `「${decodedName}」タグが付いたTL・乙女向け同人コミック${tagWorks.length}作品を掲載。`;
+  const saleCount = tagWorks.filter((w) => w.sale_price !== null && w.sale_price < w.price).length;
+  const ratedWorks = tagWorks.filter((w) => w.rating !== null);
+  const avgRating = ratedWorks.length > 0
+    ? (ratedWorks.reduce((s, w) => s + (w.rating ?? 0), 0) / ratedWorks.length).toFixed(1)
+    : null;
+  const topCircles = Array.from(
+    new Set(tagWorks.slice(0, 10).map((w) => w.circle_name).filter(Boolean))
+  ).slice(0, 5);
+
+  // layout.tsx の template "%s | ひめコミ" が自動付与される
+  const title = `${decodedName}のTL同人コミック・CGおすすめ${tagWorks.length}選 レビュー・感想・セール情報`;
+  const ratingText = avgRating ? `平均評価★${avgRating}。` : "";
+  const saleText = saleCount > 0 ? `セール中${saleCount}作品。` : "";
+  const circleText = topCircles.length > 0 ? `人気サークルは${topCircles.join("・")}など。` : "";
+  const description = `「${decodedName}」ジャンルのTL・乙女向け同人コミック・CG${tagWorks.length}作品を厳選レビュー。${ratingText}${saleText}${circleText}FANZAで人気の${decodedName}作品の評価・あらすじ・感想を毎日更新。`.slice(0, 160);
 
   return {
     title,
     description,
     alternates: { canonical: `/tags/${name}/` },
+    openGraph: {
+      title,
+      description,
+      type: "website",
+    },
   };
 }
 
@@ -121,8 +140,25 @@ export default async function TagDetailPage({ params }: Props) {
     .sort((a, b) => b[1] - a[1])
     .slice(0, 10);
 
+  // SEOリード文用集計
+  const saleCount = tagWorks.filter((w) => w.sale_price !== null && w.sale_price < w.price).length;
+  const ratedWorks = tagWorks.filter((w) => w.rating !== null);
+  const avgRating = ratedWorks.length > 0
+    ? ratedWorks.reduce((s, w) => s + (w.rating ?? 0), 0) / ratedWorks.length
+    : null;
+  const topCircles = Array.from(
+    new Set(tagWorks.slice(0, 10).map((w) => w.circle_name).filter(Boolean))
+  ).slice(0, 5);
+
   return (
     <div className="min-h-screen bg-background">
+      <BreadcrumbJsonLd
+        items={[
+          { label: "トップ", href: "/" },
+          { label: "タグ一覧", href: "/tags/" },
+          { label: decodedName },
+        ]}
+      />
       <Header />
 
       <main className="mx-auto max-w-5xl px-4 py-8">
@@ -142,9 +178,38 @@ export default async function TagDetailPage({ params }: Props) {
         {/* ヘッダーカード */}
         <Card className="mb-6 border-border">
           <CardContent className="p-5">
-            <h1 className="text-xl font-bold text-foreground">#{decodedName}</h1>
+            <h1 className="text-xl font-bold text-foreground">
+              #{decodedName} のTL同人コミック・CGおすすめ{sortedWorks.length}選
+            </h1>
             <p className="mt-1 text-sm text-muted-foreground">
-              {sortedWorks.length}作品
+              {sortedWorks.length}作品 / レビュー・感想・セール情報
+            </p>
+            {/* SEOリード文 */}
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+              「<span className="font-semibold text-foreground">{decodedName}</span>」ジャンルのTL・乙女向け同人コミック・CG作品
+              <span className="font-semibold text-foreground">{sortedWorks.length}作品</span>を厳選レビュー。
+              {avgRating !== null && (
+                <>
+                  平均評価
+                  <span className="font-semibold text-foreground">★{avgRating.toFixed(1)}</span>
+                  。
+                </>
+              )}
+              {saleCount > 0 && (
+                <>
+                  現在
+                  <span className="font-semibold text-foreground">{saleCount}作品がセール中</span>
+                  。
+                </>
+              )}
+              {topCircles.length > 0 && (
+                <>
+                  人気サークルは
+                  <span className="text-foreground">{topCircles.join("・")}</span>
+                  など。
+                </>
+              )}
+              FANZAで人気の{decodedName}ジャンル作品の評価・あらすじ・感想を毎日更新中。
             </p>
           </CardContent>
         </Card>

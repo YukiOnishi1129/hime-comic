@@ -41,8 +41,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return { title: "サークル特集が見つかりません" };
   }
 
-  const title = `${feature.circle_name}特集 - おすすめ同人コミックレビュー厳選${feature.works.length}作品 | ひめコミ`;
-  const description = feature.description || `${feature.circle_name}の人気TL・乙女向け同人コミックを厳選。迷ったらここから選べばハズレなし。`;
+  const year = new Date().getFullYear();
+  // layout.tsx の template "%s | ひめコミ" が自動付与される
+  const title = `【${year}年最新】${feature.circle_name}特集 おすすめTL同人コミック・CG厳選${feature.works.length}作品レビュー`;
+  const headlineText = feature.headline ? `${feature.headline}。` : "";
+  const description = `${feature.circle_name}の人気TL・乙女向け同人コミック・CG${feature.works.length}作品を厳選レビュー特集。${headlineText}${feature.description || ""}FANZAで評価の高い${feature.circle_name}作品を毎日更新。`.slice(0, 160);
 
   return {
     title,

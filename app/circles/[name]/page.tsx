@@ -6,6 +6,7 @@ import { Header, Footer } from "@/components/layout";
 import { WorkGridWithLoadMore } from "@/components/work";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { BreadcrumbJsonLd } from "@/components/json-ld";
 import { getWorksByCircleName, getAllCircleNames, getCircleFeatureByName } from "@/lib/parquet";
 
 interface Props {
@@ -19,12 +20,26 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (works.length === 0) {
     return {
-      title: "サークルが見つかりません | ひめコミ",
+      title: "サークルが見つかりません",
     };
   }
 
-  const title = `${decodedName}の作品レビュー一覧（${works.length}作品） | ひめコミ`;
-  const description = `サークル「${decodedName}」のTL・乙女向け同人コミック ${works.length}作品を掲載。`;
+  // 上位ジャンルを抽出
+  const topGenres = Array.from(
+    new Set(works.slice(0, 8).flatMap((w) => w.genre_tags || []).filter(Boolean))
+  ).slice(0, 5);
+  const saleCount = works.filter((w) => w.sale_price !== null && w.sale_price < w.price).length;
+  const ratedWorks = works.filter((w) => w.rating !== null);
+  const avgRating = ratedWorks.length > 0
+    ? (ratedWorks.reduce((s, w) => s + (w.rating ?? 0), 0) / ratedWorks.length).toFixed(1)
+    : null;
+
+  // layout.tsx の template "%s | ひめコミ" が自動付与される
+  const title = `${decodedName}のTL同人コミック・CGおすすめ${works.length}選 レビュー・感想・セール情報`;
+  const genreText = topGenres.length > 0 ? `主なジャンルは${topGenres.join("・")}。` : "";
+  const ratingText = avgRating ? `平均評価★${avgRating}。` : "";
+  const saleText = saleCount > 0 ? `セール中${saleCount}作品。` : "";
+  const description = `サークル「${decodedName}」のTL・乙女向け同人コミック・CG${works.length}作品を厳選レビュー。${genreText}${ratingText}${saleText}FANZAで人気の${decodedName}作品の評価・あらすじ・感想を毎日更新。`.slice(0, 160);
 
   return {
     title,
@@ -72,8 +87,20 @@ export default async function CircleDetailPage({ params }: Props) {
     ? ratedWorks.reduce((sum, w) => sum + (w.rating ?? 0), 0) / ratedWorks.length
     : null;
 
+  // SEOリード文用集計
+  const topGenres = Array.from(
+    new Set(works.slice(0, 8).flatMap((w) => w.genre_tags || []).filter(Boolean))
+  ).slice(0, 5);
+
   return (
     <div className="min-h-screen bg-background">
+      <BreadcrumbJsonLd
+        items={[
+          { label: "トップ", href: "/" },
+          { label: "サークル一覧", href: "/circles/" },
+          { label: decodedName },
+        ]}
+      />
       <Header />
 
       <main className="mx-auto max-w-5xl px-4 py-8">
@@ -94,10 +121,37 @@ export default async function CircleDetailPage({ params }: Props) {
         <Card className="mb-6 border-border">
           <CardContent className="p-5">
             <h1 className="text-xl font-bold text-foreground">
-              {decodedName}
+              {decodedName}のTL同人コミック・CGおすすめ{works.length}選
             </h1>
             <p className="mt-1 text-sm text-muted-foreground">
-              {works.length}作品
+              {works.length}作品 / レビュー・感想・セール情報
+            </p>
+            {/* SEOリード文 */}
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+              サークル<span className="font-semibold text-foreground">「{decodedName}」</span>のTL・乙女向け同人コミック・CG作品
+              <span className="font-semibold text-foreground">{works.length}作品</span>を厳選レビュー。
+              {topGenres.length > 0 && (
+                <>
+                  主なジャンルは
+                  <span className="text-foreground">{topGenres.join("・")}</span>
+                  。
+                </>
+              )}
+              {avgRating !== null && (
+                <>
+                  平均評価
+                  <span className="font-semibold text-foreground">★{avgRating.toFixed(1)}</span>
+                  。
+                </>
+              )}
+              {saleWorksCount > 0 && (
+                <>
+                  現在
+                  <span className="font-semibold text-foreground">{saleWorksCount}作品がセール中</span>
+                  。
+                </>
+              )}
+              FANZAで人気の{decodedName}作品の評価・あらすじ・感想を毎日更新中。
             </p>
           </CardContent>
         </Card>

@@ -31,6 +31,15 @@ interface Props {
   params: Promise<{ id: string }>;
 }
 
+// FANZAタイトルから割引文字列等のノイズを除去（SEO用にクリーンなタイトルにする）
+function sanitizeTitleForSeo(rawTitle: string): string {
+  if (!rawTitle) return "";
+  let cleaned = rawTitle;
+  cleaned = cleaned.replace(/【[^】]*(?:OFF|まで|セール|キャンペーン|期間限定|弾|割引)[^】]*】/g, "");
+  cleaned = cleaned.replace(/\s+/g, " ").trim();
+  return cleaned;
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
   const work = await getWorkById(parseInt(id, 10));
@@ -40,20 +49,52 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   const isOnSale = work.sale_price !== null && work.sale_price < work.price;
-  const salePrefix = isOnSale ? `【${work.discount_rate}%OFF】` : "";
+  const cleanTitle = sanitizeTitleForSeo(work.title) || work.title;
 
-  const ratingText = work.rating ? `★${work.rating.toFixed(1)}` : "";
-  const saleText = isOnSale ? `${work.discount_rate}%OFF セール中` : "";
-  const leadParts = [ratingText, saleText].filter(Boolean).join("／");
-  const leadPrefix = leadParts ? `${leadParts}｜` : "";
-  const baseDesc = work.ai_appeal_points || work.ai_summary || `${work.circle_name}の作品「${work.title}」`;
-  const description = `${leadPrefix}${baseDesc}`;
+  // SEO重視のタイトル: 「作品名｜サークル名・ジャンル1・ジャンル2のレビュー・感想」
+  // layout.tsx の template "%s | ひめコミ" が自動付与されるので末尾の "| ひめコミ" は省略
+  const topGenres = (work.genre_tags || []).slice(0, 2);
+  const titleParts: string[] = [];
+  if (work.circle_name) titleParts.push(work.circle_name);
+  titleParts.push(...topGenres);
+  const titleSuffix = titleParts.length > 0 ? `｜${titleParts.join("・")}のレビュー・感想` : "｜レビュー・感想";
+  const salePrefix = isOnSale ? `【${work.discount_rate}%OFF】` : "";
+  const pageTitle = `${salePrefix}${cleanTitle}${titleSuffix}`;
+
+  // SEO重視のdescription:
+  // 検索結果(SERP)冒頭60文字でユーザーが「何の作品か」即理解できるよう、
+  // 順番は ①核心情報（サークル+ジャンル+作品種別）→ ②本文 → ③評価/価格/ページ数
+  const ratingText = work.rating ? `★${work.rating.toFixed(1)}（${work.review_count || 0}件）` : "";
+  const priceText = isOnSale && work.sale_price
+    ? `${work.discount_rate}%OFF ${work.sale_price.toLocaleString()}円`
+    : work.price ? `${work.price.toLocaleString()}円` : "";
+  const pageInfo = work.page_count ? `${work.page_count}P` : "";
+  const detailParts = [ratingText, priceText, pageInfo].filter(Boolean).join("｜");
+
+  // 冒頭60文字に詰める核心情報
+  const genreInfo = topGenres.length > 0 ? `${topGenres.join("・")}` : "";
+  const leadCore = work.circle_name && genreInfo
+    ? `${work.circle_name}の${genreInfo}TL同人コミック・CGレビュー。`
+    : work.circle_name
+    ? `${work.circle_name}のTL同人コミック・CGレビュー。`
+    : `TL同人コミック・CG作品レビュー。`;
+
+  const baseBody = work.ai_appeal_points || work.ai_summary || "";
+  const usedBeforeBody = leadCore.length;
+  const reservedAfterBody = detailParts.length + 1;
+  const remaining = Math.max(0, 158 - usedBeforeBody - reservedAfterBody);
+  const trimmedBody = baseBody.length > remaining
+    ? baseBody.slice(0, Math.max(0, remaining - 1)) + "…"
+    : baseBody;
+  const description = [leadCore + trimmedBody, detailParts].filter(Boolean).join("｜");
 
   return {
-    title: `${salePrefix}${work.title} レビュー・感想 | ひめコミ`,
+    title: pageTitle,
     description,
     alternates: { canonical: `/works/${id}/` },
     openGraph: {
+      title: cleanTitle,
+      description,
       images: work.thumbnail_url ? [work.thumbnail_url] : [],
     },
   };
@@ -198,10 +239,46 @@ export default async function WorkDetailPage({ params }: Props) {
             </div>
           )}
 
-          {/* タイトル */}
+          {/* タイトル（h1: 検索エンジンへの主要キーワード集約。サブタイトルでサークル名・ジャンルを明示） */}
           <h1 className="text-2xl md:text-3xl font-bold text-foreground">
             {work.title}
+            {(work.circle_name || (work.genre_tags && work.genre_tags.length > 0)) && (
+              <span className="block mt-1 text-sm md:text-base font-normal text-muted-foreground">
+                {work.circle_name ? `${work.circle_name}` : ""}
+                {work.genre_tags && work.genre_tags.length > 0
+                  ? `${work.circle_name ? "の" : ""}${work.genre_tags.slice(0, 2).join("・")}TL同人コミック・CG`
+                  : "のTL同人コミック・CG"}
+                レビュー・感想
+              </span>
+            )}
           </h1>
+
+          {/* SEO重視のリード文（h1直下にキーワード詰め込み、ユーザーにも有用な情報サマリ） */}
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            <span className="font-semibold text-foreground">{work.circle_name}</span>
+            {work.author_name && <>（{work.author_name}）</>}
+            によるTL同人コミック・CG作品
+            {work.page_count ? `（${work.page_count}ページ）` : ""}
+            のレビュー・感想ページ。
+            {work.genre_tags && work.genre_tags.length > 0 && (
+              <>
+                ジャンルは
+                <span className="text-foreground">
+                  {work.genre_tags.slice(0, 5).join("・")}
+                </span>
+                。
+              </>
+            )}
+            {work.rating && work.review_count ? (
+              <>
+                FANZAでの評価は
+                <span className="font-semibold text-foreground">
+                  ★{work.rating.toFixed(1)}（レビュー{work.review_count}件）
+                </span>
+                。
+              </>
+            ) : null}
+          </p>
 
           {/* サークル */}
           <div className="text-muted-foreground">
@@ -414,7 +491,7 @@ export default async function WorkDetailPage({ params }: Props) {
             </Card>
           )}
 
-          {/* 編集部レビュー */}
+          {/* 編集部レビュー（長文化された ai_review を段落区切りで表示） */}
           {work.ai_review && (
             <Card className="bg-gradient-to-br from-purple-50 to-indigo-50 dark:from-purple-950 dark:to-indigo-950 border-purple-200 dark:border-purple-800">
               <CardHeader className="pb-2">
@@ -422,10 +499,18 @@ export default async function WorkDetailPage({ params }: Props) {
                   📝 ひめコミ編集部レビュー
                 </CardTitle>
               </CardHeader>
-              <CardContent>
-                <p className="text-gray-800 dark:text-gray-200 leading-relaxed">
-                  {work.ai_review}
-                </p>
+              <CardContent className="space-y-3">
+                {work.ai_review
+                  .split(/\n\n+/)
+                  .filter((paragraph) => paragraph.trim().length > 0)
+                  .map((paragraph, idx) => (
+                    <p
+                      key={idx}
+                      className="text-gray-800 dark:text-gray-200 leading-relaxed"
+                    >
+                      {paragraph.trim()}
+                    </p>
+                  ))}
               </CardContent>
             </Card>
           )}
