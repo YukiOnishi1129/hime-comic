@@ -7,6 +7,8 @@ import { WorkGridWithLoadMore } from "@/components/work";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { BreadcrumbJsonLd } from "@/components/json-ld";
+import { LastUpdated } from "@/components/last-updated";
+import { EditorialCredit } from "@/components/editorial-credit";
 import { getWorks, getGenreFeatures } from "@/lib/parquet";
 import type { GenreFeature } from "@/types";
 
@@ -162,18 +164,21 @@ export default async function TagDetailPage({ params }: Props) {
       <Header />
 
       <main className="mx-auto max-w-5xl px-4 py-8">
-        {/* パンくずリスト */}
-        <nav className="mb-6 text-sm text-muted-foreground">
-          <Link href="/" className="hover:text-foreground">
-            トップ
-          </Link>
-          <span className="mx-2">/</span>
-          <Link href="/tags" className="hover:text-foreground">
-            タグ
-          </Link>
-          <span className="mx-2">/</span>
-          <span className="text-foreground">{decodedName}</span>
-        </nav>
+        {/* パンくず + 最終更新日 */}
+        <div className="mb-6 flex flex-wrap items-center justify-between gap-2">
+          <nav className="text-sm text-muted-foreground">
+            <Link href="/" className="hover:text-foreground">
+              トップ
+            </Link>
+            <span className="mx-2">/</span>
+            <Link href="/tags" className="hover:text-foreground">
+              タグ
+            </Link>
+            <span className="mx-2">/</span>
+            <span className="text-foreground">{decodedName}</span>
+          </nav>
+          <LastUpdated variant="card" />
+        </div>
 
         {/* ヘッダーカード */}
         <Card className="mb-6 border-border">
@@ -296,6 +301,8 @@ export default async function TagDetailPage({ params }: Props) {
         {/* 作品一覧 */}
         <h2 className="mb-4 text-lg font-bold text-foreground">作品一覧</h2>
         <WorkGridWithLoadMore works={sortedWorks} initialCount={20} loadMoreCount={20} />
+
+        <EditorialCredit />
       </main>
 
       <Footer />

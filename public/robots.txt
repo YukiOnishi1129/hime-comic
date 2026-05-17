@@ -3,5 +3,7 @@ Allow: /
 Disallow: /api/
 Disallow: /privacy
 Disallow: /search
+Disallow: /search/
+Disallow: /search?
 
 Sitemap: https://hime-comic.com/sitemap.xml

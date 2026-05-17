@@ -72,6 +72,7 @@ async function main() {
     { path: "/features/circle/", priority: "0.8", changefreq: "weekly" },
     { path: "/tags/", priority: "0.7", changefreq: "weekly" },
     { path: "/circles/", priority: "0.7", changefreq: "weekly" },
+    { path: "/editorial/", priority: "0.5", changefreq: "monthly" },
   ];
 
   for (const page of staticPages) {

@@ -189,3 +189,107 @@ export function ItemListJsonLd({
     />
   );
 }
+
+// =============================================================================
+// Circle (Organization) JSON-LD（サークルページ用）
+// =============================================================================
+interface CircleOrganizationJsonLdProps {
+  name: string;
+  workCount: number;
+  mainGenre?: string | null;
+  pageUrl: string;
+}
+
+export function CircleOrganizationJsonLd({
+  name,
+  workCount,
+  mainGenre,
+  pageUrl,
+}: CircleOrganizationJsonLdProps) {
+  const genreText = mainGenre ? `（${mainGenre}）` : "";
+  const description = `同人サークル「${name}」${genreText}の作品${workCount}件をまとめたページ。代表作・人気作・セール情報をひめコミ編集部が整理しています。`;
+
+  const jsonLd: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name,
+    url: pageUrl,
+    description,
+    additionalType: "https://schema.org/CreativeWork",
+  };
+
+  if (mainGenre) {
+    jsonLd.knowsAbout = [mainGenre, "TL同人コミック", "乙女向け同人コミック"];
+  }
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    />
+  );
+}
+
+// =============================================================================
+// Article JSON-LD（特集ページ用 / 編集部記事として明示）
+// =============================================================================
+interface ArticleJsonLdProps {
+  headline: string;
+  description: string;
+  url: string;
+  imageUrl?: string | null;
+  datePublished?: string;
+}
+
+function getBuildDateIso(): string {
+  return new Date().toISOString();
+}
+
+export function ArticleJsonLd({
+  headline,
+  description,
+  url,
+  imageUrl,
+  datePublished,
+}: ArticleJsonLdProps) {
+  const buildDate = getBuildDateIso();
+  const jsonLd: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: headline.slice(0, 110),
+    description,
+    url,
+    inLanguage: "ja",
+    datePublished: datePublished ?? buildDate,
+    dateModified: buildDate,
+    author: {
+      "@type": "Organization",
+      name: "ひめコミ編集部",
+      url: "https://hime-comic.com/editorial/",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "ひめコミ",
+      url: "https://hime-comic.com",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://hime-comic.com/favicon-256.png",
+      },
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": url,
+    },
+  };
+
+  if (imageUrl) {
+    jsonLd.image = imageUrl;
+  }
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    />
+  );
+}

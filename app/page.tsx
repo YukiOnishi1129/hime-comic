@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Header, Footer } from "@/components/layout";
+import { LastUpdated } from "@/components/last-updated";
 import { HorizontalScrollSection } from "@/components/horizontal-scroll-section";
 import { HeroSaleBanner } from "@/components/hero-sale-banner";
 import { CampaignBanner } from "@/components/campaign-banner";
@@ -93,6 +94,14 @@ export default async function Home() {
       <Header />
 
       <main className="mx-auto max-w-7xl px-6 py-4">
+        {/* SEO用 h1 + 最終更新日 */}
+        <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+          <h1 className="text-sm font-medium text-muted-foreground sm:text-base">
+            ひめコミ | TL・乙女向け同人コミック・CGのレビューサイト
+          </h1>
+          <LastUpdated variant="card" />
+        </div>
+
         {/* セールバナー（コンパクト） */}
         {/* 春のらぶカルフェス 50%OFFクーポンバナー（〜2026/05/18 11:59まで） */}
         {isLoveculCampaignActive() && (

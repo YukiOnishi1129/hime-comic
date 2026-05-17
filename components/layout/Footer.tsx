@@ -21,6 +21,9 @@ export function Footer() {
           <Link href="/features/daily" className="hover:text-foreground">
             おすすめ
           </Link>
+          <Link href="/editorial" className="hover:text-foreground">
+            編集方針
+          </Link>
         </div>
         {/* 姉妹サイト */}
         <div className="mb-4">

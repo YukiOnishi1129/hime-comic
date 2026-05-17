@@ -25,6 +25,8 @@ import {
   getFanzaUrl,
 } from "@/lib/utils";
 import { ProductJsonLd, ReviewJsonLd, BreadcrumbJsonLd } from "@/components/json-ld";
+import { LastUpdated } from "@/components/last-updated";
+import { EditorialCredit } from "@/components/editorial-credit";
 import type { Metadata } from "next";
 
 interface Props {
@@ -155,18 +157,21 @@ export default async function WorkDetailPage({ params }: Props) {
       )}
 
       <main className="mx-auto max-w-5xl px-4 py-8">
-        {/* Breadcrumb */}
-        <nav className="mb-6 text-sm text-muted-foreground">
-          <Link href="/" className="hover:text-foreground">
-            トップ
-          </Link>
-          <span className="mx-2">/</span>
-          <Link href="/works" className="hover:text-foreground">
-            作品一覧
-          </Link>
-          <span className="mx-2">/</span>
-          <span className="text-foreground line-clamp-1">{work.title}</span>
-        </nav>
+        {/* Breadcrumb + 最終更新日 */}
+        <div className="mb-6 flex flex-wrap items-center justify-between gap-2">
+          <nav className="text-sm text-muted-foreground">
+            <Link href="/" className="hover:text-foreground">
+              トップ
+            </Link>
+            <span className="mx-2">/</span>
+            <Link href="/works" className="hover:text-foreground">
+              作品一覧
+            </Link>
+            <span className="mx-2">/</span>
+            <span className="text-foreground line-clamp-1">{work.title}</span>
+          </nav>
+          <LastUpdated variant="card" />
+        </div>
 
         {/* ヒーローセクション */}
         <div className="relative mb-6 overflow-hidden rounded-lg">
@@ -914,6 +919,9 @@ export default async function WorkDetailPage({ params }: Props) {
             </section>
           )}
         </div>
+
+        {/* 編集責任主体明示（E-E-A-T） */}
+        <EditorialCredit variant="work" />
 
         {/* 姉妹サイトバナー */}
         <SisterSiteBanner />

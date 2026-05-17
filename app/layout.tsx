@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
 import { MobileNav } from "@/components/mobile-nav";
+import { OrganizationJsonLd, WebSiteJsonLd } from "@/components/json-ld";
 import "./globals.css";
 
 const GA_MEASUREMENT_ID = "G-F6BMJ60CWG";
@@ -77,6 +78,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        {/* サイト全体の構造化データ */}
+        <OrganizationJsonLd />
+        <WebSiteJsonLd />
         {children}
         <MobileNav />
         {/* モバイルナビの高さ分の余白 */}
