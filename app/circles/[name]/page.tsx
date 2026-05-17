@@ -37,7 +37,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     : null;
 
   // layout.tsx の template "%s | ひめコミ" が自動付与される
-  const title = `${decodedName}のTL同人コミック・CGおすすめ${works.length}選 レビュー・感想・セール情報`;
+  const year = new Date().getFullYear();
+  const saleBadge = saleCount > 0 ? `【${saleCount}作品セール中】` : "";
+  const title = `${saleBadge}【${year}年最新】サークル「${decodedName}」のTL同人コミック・CGおすすめ${works.length}選｜代表作・新作レビュー`;
   const genreText = topGenres.length > 0 ? `主なジャンルは${topGenres.join("・")}。` : "";
   const ratingText = avgRating ? `平均評価★${avgRating}。` : "";
   const saleText = saleCount > 0 ? `セール中${saleCount}作品。` : "";

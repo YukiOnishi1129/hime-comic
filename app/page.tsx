@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Header, Footer } from "@/components/layout";
 import { LastUpdated } from "@/components/last-updated";
+import { PurposeNavigation } from "@/components/purpose-navigation";
 import { HorizontalScrollSection } from "@/components/horizontal-scroll-section";
 import { HeroSaleBanner } from "@/components/hero-sale-banner";
 import { CampaignBanner } from "@/components/campaign-banner";
@@ -129,6 +130,9 @@ export default async function Home() {
           circleFeatures={circleFeatures}
           genreFeatures={genreFeatures}
         />
+
+        {/* 目的別ナビゲーション（お困りごと別ご案内、SEO本【3】トップページ順位UP施策） */}
+        <PurposeNavigation />
 
         {/* トレンドチップ（コンパクト） */}
         <TrendingChips circles={topCircles} tags={popularTags} />
