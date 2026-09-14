@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ExternalLink, BookOpen } from "lucide-react";
 import { Header, Footer } from "@/components/layout";
+import { TrackedLink } from "@/components/tracked-link";
 import { SisterSiteBanner } from "@/components/sister-site-banner";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -287,12 +288,12 @@ export default async function WorkDetailPage({ params }: Props) {
 
           {/* サークル */}
           <div className="text-muted-foreground">
-            <Link
+            <TrackedLink linkType="circle" fromWorkId={work.id}
               href={`/circles/${encodeURIComponent(work.circle_name)}`}
               className="hover:text-foreground"
             >
               <Badge variant="circle">{work.circle_name}</Badge>
-            </Link>
+            </TrackedLink>
             {work.author_name && (
               <>
                 <span className="mx-2 text-muted-foreground/50">|</span>
@@ -401,14 +402,14 @@ export default async function WorkDetailPage({ params }: Props) {
           {work.genre_tags && work.genre_tags.length > 0 && (
             <div className="flex flex-wrap gap-2">
               {work.genre_tags.map((tag) => (
-                <Link key={tag} href={`/tags/${encodeURIComponent(tag)}`}>
+                <TrackedLink linkType="tag" fromWorkId={work.id} key={tag} href={`/tags/${encodeURIComponent(tag)}`}>
                   <Badge
                     variant="tag"
                     className="cursor-pointer hover:opacity-80"
                   >
                     {tag}
                   </Badge>
-                </Link>
+                </TrackedLink>
               ))}
             </div>
           )}
@@ -569,14 +570,14 @@ export default async function WorkDetailPage({ params }: Props) {
                   </div>
                   <div className="flex flex-wrap gap-1.5 justify-end ml-4">
                     {work.genre_tags.map((tag) => (
-                      <Link key={tag} href={`/tags/${encodeURIComponent(tag)}`}>
+                      <TrackedLink linkType="tag" fromWorkId={work.id} key={tag} href={`/tags/${encodeURIComponent(tag)}`}>
                         <Badge
                           variant="tag"
                           className="text-xs cursor-pointer hover:opacity-80"
                         >
                           {tag}
                         </Badge>
-                      </Link>
+                      </TrackedLink>
                     ))}
                   </div>
                 </div>
@@ -831,7 +832,7 @@ export default async function WorkDetailPage({ params }: Props) {
                 <span className="text-pink-500">🎨</span>
                 {work.circle_name}の特集ページ
               </h2>
-              <Link href={`/features/circle/${circleFeature.slug}`}>
+              <TrackedLink linkType="feature" fromWorkId={work.id} href={`/features/circle/${circleFeature.slug}`}>
                 <Card className="overflow-hidden hover:shadow-lg transition-shadow">
                   <div className="relative">
                     {circleFeature.thumbnail_url && (
@@ -855,7 +856,7 @@ export default async function WorkDetailPage({ params }: Props) {
                     </div>
                   </div>
                 </Card>
-              </Link>
+              </TrackedLink>
             </div>
           )}
 
@@ -895,7 +896,7 @@ export default async function WorkDetailPage({ params }: Props) {
               <h2 className="text-lg font-bold text-foreground">🎨 人気サークル特集</h2>
               <div className="grid gap-3 md:grid-cols-3">
                 {allCircleFeatures.slice(0, 6).map((feature) => (
-                  <Link key={feature.slug} href={`/features/circle/${feature.slug}`}>
+                  <TrackedLink linkType="feature" fromWorkId={work.id} key={feature.slug} href={`/features/circle/${feature.slug}`}>
                     <div className="flex items-center gap-3 p-3 rounded-lg border border-pink-500/30 hover:border-pink-500/50 transition-all bg-card">
                       {feature.thumbnail_url && (
                         <div className="relative w-16 h-16 shrink-0 rounded-lg overflow-hidden">
@@ -913,7 +914,7 @@ export default async function WorkDetailPage({ params }: Props) {
                         </p>
                       </div>
                     </div>
-                  </Link>
+                  </TrackedLink>
                 ))}
               </div>
             </section>
