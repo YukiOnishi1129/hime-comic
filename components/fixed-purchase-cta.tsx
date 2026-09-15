@@ -16,7 +16,8 @@ interface FixedPurchaseCtaProps {
   price: number;
   salePrice: number | null;
   discountRate: number;
-  fanzaUrl: string;
+  /** 購入先アフィリエイトURL。null の場合はCTAを表示しない */
+  fanzaUrl: string | null;
   saleEndDate: string | null;
   workId?: number;
 }
@@ -85,8 +86,14 @@ export function FixedPurchaseCta({
           rel="noopener noreferrer"
           onClick={() => {
             if (typeof window !== "undefined" && window.gtag) {
-              const match = fanzaUrl.match(/cid=([^/&]+)/);
-              window.gtag("event", "fanza_click", {
+              // 購入先ごとにイベントを分ける（DLsite送客が
+              // fanza_click に混ざらないようにするため）
+              const isDlsite =
+                fanzaUrl.includes("dlaf.jp") || fanzaUrl.includes("dlsite.com");
+              const match = isDlsite
+                ? fanzaUrl.match(/\/id\/([^/.]+)\.html/)
+                : fanzaUrl.match(/cid=([^/&]+)/);
+              window.gtag("event", isDlsite ? "dlsite_click" : "fanza_click", {
                 content_id: match ? match[1] : undefined,
                 work_id: workId,
                 source: "fixed_cta",

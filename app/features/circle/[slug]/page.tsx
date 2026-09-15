@@ -25,7 +25,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { FanzaLink } from "@/components/fanza-link";
-import { formatRating, formatPrice, getFanzaUrl } from "@/lib/utils";
+import { formatRating, formatPrice, getPurchaseUrl } from "@/lib/utils";
 import type { Metadata } from "next";
 import type { Work, CircleFeatureWork } from "@/types";
 
@@ -82,7 +82,7 @@ function RecommendationCard({
   const isOnSale = fullWork?.sale_price !== null && fullWork?.sale_price !== undefined && fullWork.sale_price < fullWork.price;
   const displayPrice = isOnSale ? fullWork!.sale_price! : work.price;
   const discountRate = fullWork?.discount_rate || 0;
-  const fanzaUrl = fullWork ? getFanzaUrl(fullWork.fanza_content_id) : "#";
+  const fanzaUrl = fullWork ? getPurchaseUrl(fullWork) : null;
 
   return (
     <Card className="overflow-hidden border border-border hover:border-primary/50 transition-all">

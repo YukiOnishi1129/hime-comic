@@ -36,9 +36,23 @@ export function formatDiscount(rate: number): string {
 }
 
 /**
- * FANZAの作品ページURLを生成（アフィリエイトリンク）
+ * 購入先アフィリエイトURLを取得
+ *
+ * DBが各ストアの正しいアフィリエイトURLを持っているため、そのまま使う。
+ * URLを持たない作品だけ、FANZAのIDからフォールバックで組み立てる。
+ * DLsiteのID（RJxxxx）をFANZAのURLに埋めると404になるため、
+ * フォールバックは FANZA の ID 形式（d_xxxxx 等）のときだけ行う。
  */
-export function getFanzaUrl(contentId: string): string {
-  const rawUrl = `https://www.dmm.co.jp/dc/doujin/-/detail/=/cid=${contentId}/`;
+export function getPurchaseUrl(work: {
+  affiliate_url?: string;
+  fanza_content_id?: string;
+  store?: "fanza" | "dlsite";
+}): string | null {
+  if (work.affiliate_url) return work.affiliate_url;
+
+  const id = work.fanza_content_id;
+  if (!id || work.store === "dlsite" || id.startsWith("RJ")) return null;
+
+  const rawUrl = `https://www.dmm.co.jp/dc/doujin/-/detail/=/cid=${id}/`;
   return `https://al.dmm.co.jp/?lurl=${encodeURIComponent(rawUrl)}&af_id=monodata-996&ch=link_tool&ch_id=link`;
 }

@@ -12,7 +12,7 @@ import { FanzaLink } from "@/components/fanza-link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { formatPrice, formatDate, getFanzaUrl } from "@/lib/utils";
+import { formatPrice, formatDate, getPurchaseUrl } from "@/lib/utils";
 import type { Work } from "@/types";
 import {
   Flame,
@@ -96,7 +96,7 @@ function MainFocusCard({
   const isOnSale = work.sale_price !== null && work.sale_price < work.price;
   const displayPrice = isOnSale ? work.sale_price! : work.price;
   const timeRemaining = getTimeRemaining(work.sale_end_date);
-  const fanzaUrl = getFanzaUrl(work.fanza_content_id);
+  const fanzaUrl = getPurchaseUrl(work);
 
   return (
     <Card className="overflow-hidden border-2 border-sale/50 bg-gradient-to-b from-sale/5 to-transparent">
@@ -267,7 +267,7 @@ function SubCard({
   const isOnSale = work.sale_price !== null && work.sale_price < work.price;
   const displayPrice = isOnSale ? work.sale_price! : work.price;
   const timeRemaining = getTimeRemaining(work.sale_end_date);
-  const fanzaUrl = getFanzaUrl(work.fanza_content_id);
+  const fanzaUrl = getPurchaseUrl(work);
 
   return (
     <Card className="overflow-hidden transition-all hover:shadow-md border border-border">

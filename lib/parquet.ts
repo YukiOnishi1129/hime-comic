@@ -101,12 +101,25 @@ export async function getWorks(): Promise<Work[]> {
         || (Array.isArray(sample_images) && sample_images[0])
         || "";
 
-      // content_id: dlsite優先、なければfanza
-      const fanza_content_id = work.dlsite_product_id || work.fanza_product_id || "";
+      // 購入先の決定: FANZAにある作品はFANZA、それ以外はDLsite。
+      // DBが各ストアのアフィリエイトURL（fanza_url / dlsite_url）を
+      // 正しいID・アフィリエイトIDで持っているため、URLを組み立て直さず
+      // そのまま使う。以前はDLsiteのID(RJxxxx)をFANZAのURLに埋めており、
+      // 作品ページの約77%で404になっていた。
+      const isFanza = Boolean(work.fanza_product_id);
+      const store: "fanza" | "dlsite" = isFanza ? "fanza" : "dlsite";
+      const affiliate_url = (isFanza ? work.fanza_url : work.dlsite_url) || "";
+
+      // 後方互換: 既存コードが参照している content_id。
+      // 購入先ストアに対応する正しいIDを入れる。
+      const fanza_content_id =
+        (isFanza ? work.fanza_product_id : work.dlsite_product_id) || "";
 
       return {
         id: work.id,
         fanza_content_id,
+        affiliate_url,
+        store,
         title: work.title,
         price,
         sale_price,

@@ -2,6 +2,10 @@
 export interface Work {
   id: number;
   fanza_content_id: string;
+  /** 購入先アフィリエイトURL。FANZA作品はFANZA、DLsite作品はDLsiteを指す */
+  affiliate_url: string;
+  /** 購入先ストア。計測イベントの出し分けに使う */
+  store: "fanza" | "dlsite";
   title: string;
   price: number;
   sale_price: number | null;

@@ -23,7 +23,7 @@ import {
   formatPrice,
   formatRating,
   formatDiscount,
-  getFanzaUrl,
+  getPurchaseUrl,
 } from "@/lib/utils";
 import { ProductJsonLd, ReviewJsonLd, BreadcrumbJsonLd } from "@/components/json-ld";
 import { LastUpdated } from "@/components/last-updated";
@@ -121,7 +121,7 @@ export default async function WorkDetailPage({ params }: Props) {
   }
 
   const isOnSale = work.sale_price !== null && work.sale_price < work.price;
-  const fanzaUrl = getFanzaUrl(work.fanza_content_id);
+  const fanzaUrl = getPurchaseUrl(work);
   const displayPrice = isOnSale ? work.sale_price! : work.price;
 
   // 関連データを取得
