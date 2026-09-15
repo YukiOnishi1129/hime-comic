@@ -12,6 +12,9 @@ import { EditorialCredit } from "@/components/editorial-credit";
 import { getWorks, getGenreFeatures } from "@/lib/parquet";
 import type { GenreFeature } from "@/types";
 
+// SSGでHTMLに埋め込む作品数の上限（Googlebotの2MBクロール上限対策）
+const MAX_SSG_WORKS = 100;
+
 // タグ名 → 性癖特集slugの逆引きマップ（タグ一覧の実際のタグ名に合わせる）
 const TAG_TO_SLUG = new Map<string, string>([
   ["フェラ", "fellatio"],
@@ -130,6 +133,11 @@ export default async function TagDetailPage({ params }: Props) {
 
   // 評価順でソート
   const sortedWorks = tagWorks.sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0));
+  // SSGでHTMLに埋め込む件数を制限する。
+  // 全件渡すとタグによってはHTMLが2MBを超え、Googlebotのクロール上限に達して
+  // ページ下部がインデックスされなくなる（実測で最大21MBのタグがあった）。
+  // 表示は WorkGridWithLoadMore が20件ずつ行うため、体験は変わらない。
+  const displayedWorks = sortedWorks.slice(0, MAX_SSG_WORKS);
 
   // 関連タグを収集（このタグの作品に付いている他のタグ）
   const relatedTagCounts = new Map<string, number>();
@@ -302,7 +310,7 @@ export default async function TagDetailPage({ params }: Props) {
 
         {/* 作品一覧 */}
         <h2 className="mb-4 text-lg font-bold text-foreground">作品一覧</h2>
-        <WorkGridWithLoadMore works={sortedWorks} initialCount={20} loadMoreCount={20} />
+        <WorkGridWithLoadMore works={displayedWorks} initialCount={20} loadMoreCount={20} />
 
         <EditorialCredit />
       </main>
